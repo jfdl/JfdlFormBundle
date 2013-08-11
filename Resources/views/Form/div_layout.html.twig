@@ -31,7 +31,15 @@
                             }
                         },
                         results: function (data) {
-                            return { results: data }
+                            {% if form.vars.jsonText is not null %}
+                                var datas = [];
+                                $.each(data, function(key, val) {
+                                    datas.push({'id':val.id,'text':val.{{ form.vars.jsonText}}});
+                                });
+                                return { results: datas }
+                            {% else %}
+                                return { results: data }
+                            {% endif %}
                         }
                     }
 

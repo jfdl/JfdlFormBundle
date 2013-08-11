@@ -90,4 +90,11 @@ Add jquery.select2 css file
 {% endblock %}
 ```
 
+### Configuration
+placeholder: Default text to display (Default : Choose an option)
+route: Route select2 have to send datas request (Default: null)
+quietMillis: Delay before select2 will send an ajax request (Default: 300 ms)
+jsonText: json response should be like this [{'id':1, 'text':MyFirstValue}] but you may want to change de text key with this value (Default: null)
+minimumInputLength: Minimum input length before ajax call (Default: 3)
+
 That's all... for the moment

@@ -43,6 +43,7 @@ class Select2AjaxEntityType extends AbstractType
         $builder->setAttribute('multiple', $options['multiple']);
         $builder->setAttribute('route', $options['route']);
         $builder->setAttribute('quietMillis', $options['quietMillis']);
+        $builder->setAttribute('jsonText', $options['jsonText']);
         $builder->setAttribute('minimumInputLength', $options['minimumInputLength']);
         $builder->addViewTransformer($transformer);
     }
@@ -75,6 +76,7 @@ class Select2AjaxEntityType extends AbstractType
 
         $view->set('multiple', $form->getAttribute('multiple'));
         $view->set('quietMillis', $form->getAttribute('quietMillis'));
+        $view->set('jsonText', $form->getAttribute('jsonText'));
         $view->set('minimumInputLength', $form->getAttribute('minimumInputLength'));
     }
 
@@ -88,6 +90,7 @@ class Select2AjaxEntityType extends AbstractType
                 'property'      => null,
                 'multiple'      => false,
                 'quietMillis' => '300',
+                'jsonText' => null,
                 'minimumInputLength' => 3
             ));
 
