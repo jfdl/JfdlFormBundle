@@ -17,8 +17,34 @@ Installation :
 2. Enable the Bundle
 
 
-### Step 1: Download JfdlFormBundle
+### Step 1: Download JfdlFormBundle using composer.json
 
+``` php
+<?php
+// composer.json
+in your require section
+"jfdl/form-bundle": "0.1.2"
+
+in your repositories section
+"repositories": {
+    "jfdl/form-bundle": {
+        "type": "package",
+        "package": {
+            "version": "v0.1.2",
+            "name": "jfdl/form-bundle",
+            "source": {
+               "url": "https://github.com/jfdl/JfdlFormBundle.git",
+               "type": "git",
+               "reference": "v0.1.2"
+            },
+            "autoload": {
+                "psr-0": { "Jfdl\\Bundle\\FormBundle": "" }
+            },
+            "target-dir": "Jfdl/Bundle/FormBundle"
+        }
+    }
+},
+```
 
 ### Step 2: Enable the bundle
 
@@ -36,15 +62,6 @@ public function registerBundles()
     );
 }
 ```
-
-In your config.yml add the following lines:
-
-``` yml
-jfdl_form:
-    form_types:
-      select2_ajax_entity: true
-```
-
 
 ### Step 3: Use jfdl_select2_ajax_entity
 
