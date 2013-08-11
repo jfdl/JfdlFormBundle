@@ -19,5 +19,5 @@
     "autoload": {
         "psr-0": { "Jfdl\\Bundle\\FormBundle": "" }
     },
-    "target-dir": "Jfdl/Bundle/FormBundle"
+    "target-dir": "Jfdl/FormBundle"
 }
