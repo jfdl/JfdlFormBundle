@@ -1,0 +1,23 @@
+{
+    "name": "jfdl/form-bundle",
+    "description": "Provides jfdl_select2_ajax_entity trough jquery.select2",
+    "keywords": ["form"],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jfdl"
+        }
+    ],
+    "require": {
+        "symfony/symfony": "~2.1"
+    },
+    "require-dev": {
+        "doctrine/doctrine-bundle": "*",
+        "doctrine/orm": "*"
+    },
+    "autoload": {
+        "psr-0": { "Jfdl\\Bundle\\FormBundle": "" }
+    },
+    "target-dir": "Jfdl/Bundle/FormBundle"
+}
