@@ -1,0 +1,9 @@
+parameters:
+    jfdl_form.select2_ajax_entity_type.class: Jfdl\FormBundle\Form\Type\Select2AjaxEntityType
+
+services:
+    jfdl_form.select2_ajax_entity_type:
+        class: %jfdl_form.select2_ajax_entity_type.class%
+        arguments: [@doctrine, @router]
+        tags:
+            - { name: form.type, alias: jfdl_select2_ajax_entity}

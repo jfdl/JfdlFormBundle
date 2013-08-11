@@ -1,0 +1,44 @@
+
+{% block jfdl_select2_ajax_entity_widget %}
+    {{ block('form_widget') }}
+
+    <script type="text/javascript">
+        $(function(){
+
+                var options = {
+                    minimumInputLength: {{ form.vars.minimumInputLength }},
+                    allowClear: {{ form.vars.required?'false':'true' }},
+                    multiple: {{ form.vars.multiple?'true':'false' }},
+                    placeholder: function(element) {
+                        return $(element).data('placeholder');
+                    },
+                    initSelection : function (element, callback) {
+                        var initialData = $(element).data('initial');
+
+                        if (initialData) {
+                            callback(initialData);
+                        }
+                    },
+
+                    ajax: {
+                        dataType: 'json',
+                        type: 'post',
+                        url: "{{ form.vars.route}}",
+                        quietMillis: {{ form.vars.quietMillis }},
+                        data: function (term) {
+                            return {
+                                q: term,
+                            }
+                        },
+                        results: function (data) {
+                            return { results: data }
+                        }
+                    }
+
+                }
+                $("#{{ form.vars.id }}").select2(options);
+        })
+    </script>
+{% endblock %}
+
+

@@ -1,0 +1,4 @@
+twig:
+    form:
+        resources:
+            - 'JfdlFormBundle:Form:div_layout.html.twig'
