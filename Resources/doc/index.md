@@ -23,19 +23,19 @@ Installation :
 <?php
 // composer.json
 in your require section
-"jfdl/form-bundle": "0.1.2"
+"jfdl/form-bundle": "0.1.3"
 
 in your repositories section
 "repositories": {
     "jfdl/form-bundle": {
         "type": "package",
         "package": {
-            "version": "v0.1.2",
+            "version": "v0.1.3",
             "name": "jfdl/form-bundle",
             "source": {
                "url": "https://github.com/jfdl/JfdlFormBundle.git",
                "type": "git",
-               "reference": "v0.1.2"
+               "reference": "v0.1.3"
             },
             "autoload": {
                 "psr-0": { "Jfdl\\Bundle\\FormBundle": "" }
@@ -109,9 +109,13 @@ Add jquery.select2 css file
 
 ### Configuration
 placeholder: Default text to display (Default : Choose an option)
+
 route: Route select2 have to send datas request (Default: null)
+
 quietMillis: Delay before select2 will send an ajax request (Default: 300 ms)
+
 jsonText: json response should be like this [{'id':1, 'text':MyFirstValue}] but you may want to change de text key with this value (Default: null)
+
 minimumInputLength: Minimum input length before ajax call (Default: 3)
 
 That's all... for the moment
