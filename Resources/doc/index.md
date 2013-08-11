@@ -58,7 +58,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Jfdl\FormBundle\JfdlFormBundle(),
+        new Jfdl\Bundle\FormBundle\JfdlFormBundle(),
     );
 }
 ```
