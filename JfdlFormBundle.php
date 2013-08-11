@@ -1,6 +1,6 @@
 <?php
 
-namespace Jfdl\FormBundle;
+namespace Jfdl\Bundle\FormBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

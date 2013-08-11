@@ -1,6 +1,6 @@
 <?php
 
-namespace Jfdl\FormBundle\DependencyInjection;
+namespace Jfdl\Bundle\FormBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -25,7 +25,7 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->booleanNode('select2_ajax_entity')->defaultFalse()->end()
                     ->end()
-                    
+
                 ->end()
             ->end()
         ;

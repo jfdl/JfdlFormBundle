@@ -1,6 +1,6 @@
 <?php
 
-namespace Jfdl\FormBundle\Tests\Controller;
+namespace Jfdl\Bundle\FormBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
