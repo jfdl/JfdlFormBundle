@@ -1,5 +1,5 @@
 parameters:
-    jfdl_form.select2_ajax_entity_type.class: Jfdl\FormBundle\Form\Type\Select2AjaxEntityType
+    jfdl_form.select2_ajax_entity_type.class: Jfdl\Bundle\FormBundle\Form\Type\Select2AjaxEntityType
 
 services:
     jfdl_form.select2_ajax_entity_type:
