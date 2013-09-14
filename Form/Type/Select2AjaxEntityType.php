@@ -71,13 +71,13 @@ class Select2AjaxEntityType extends AbstractType
 
         $view->vars['attr']['data-placeholder'] = $options['placeholder'];
         if ($form->getConfig()->getAttribute('route')) {
-            $view->set('route', $this->router->generate($form->getConfig()->getAttribute('route')));
+            $view->vars['route'] = $this->router->generate($form->getConfig()->getAttribute('route'));
         }
 
-        $view->set('multiple', $form->getConfig()->getAttribute('multiple'));
-        $view->set('quietMillis', $form->getConfig()->getAttribute('quietMillis'));
-        $view->set('jsonText', $form->getConfig()->getAttribute('jsonText'));
-        $view->set('minimumInputLength', $form->getConfig()->getAttribute('minimumInputLength'));
+        $view->vars['multiple'] = $form->getConfig()->getAttribute('multiple');
+        $view->vars['quietMillis'] = $form->getConfig()->getAttribute('quietMillis');
+        $view->vars['jsonText'] = $form->getConfig()->getAttribute('jsonText');
+        $view->vars['minimumInputLength'] = $form->getConfig()->getAttribute('minimumInputLength');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
