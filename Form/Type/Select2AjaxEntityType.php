@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Routing\Router;
 use Jfdl\Bundle\FormBundle\Form\DataTransformer\AjaxEntityTransformer;
+use Symfony\Component\Translation\Translator;
 
 
 /**
@@ -22,11 +23,13 @@ class Select2AjaxEntityType extends AbstractType
 {
     protected $registry;
     protected $router;
+    protected $translator;
 
-    public function __construct(ManagerRegistry $registry, Router $router)
+    public function __construct(ManagerRegistry $registry, Router $router, Translator $translator)
     {
         $this->registry = $registry;
         $this->router = $router;
+        $this->translator = $translator;
 
     }
 
@@ -69,7 +72,7 @@ class Select2AjaxEntityType extends AbstractType
             $view->vars['attr']['data-initial'] = json_encode($value);
         }
 
-        $view->vars['attr']['data-placeholder'] = $options['placeholder'];
+        $view->vars['attr']['data-placeholder'] = $this->translator->trans($options['placeholder']);
         if ($form->getConfig()->getAttribute('route')) {
             $view->vars['route'] = $this->router->generate($form->getConfig()->getAttribute('route'));
         }

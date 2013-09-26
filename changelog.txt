@@ -1,2 +1,4 @@
 Version 0.1.0 (2013-08-11):
 - Initial release
+Version 2.3.2 (2013-09-26):
+- jfdl_select2_ajax_entity_type : Add translation for placeholder
