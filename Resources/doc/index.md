@@ -17,25 +17,25 @@ Installation :
 2. Enable the Bundle
 
 
-### Step 1: Download JfdlFormBundle using composer.json
+### Step 1: Download JfdlFormBundle using `composer.json`
 
 ``` php
 <?php
 // composer.json
 in your require section
-"jfdl/form-bundle": "0.1.3"
+"jfdl/form-bundle": "2.3.2"
 
 in your repositories section
 "repositories": {
     "jfdl/form-bundle": {
         "type": "package",
         "package": {
-            "version": "v0.1.3",
+            "version": "v2.3.2",
             "name": "jfdl/form-bundle",
             "source": {
                "url": "https://github.com/jfdl/JfdlFormBundle.git",
                "type": "git",
-               "reference": "v0.1.3"
+               "reference": "v2.3.2"
             },
             "autoload": {
                 "psr-0": { "Jfdl\\Bundle\\FormBundle": "" }
@@ -46,7 +46,7 @@ in your repositories section
 },
 ```
 
-### Step 2: Enable the bundle
+### Step 2: Enable the Bundle
 
 Enable the bundle in the kernel:
 
@@ -63,7 +63,7 @@ public function registerBundles()
 }
 ```
 
-### Step 3: Use jfdl_select2_ajax_entity
+### Step 3: Use `jfdl_select2_ajax_entity`
 
 In your form class :
 
@@ -81,7 +81,7 @@ public function buildForm(FormBuilderInterface $builder, array $options)
 }
 ```
 
-### Step 4: In your template
+### Step 4: In your Template
 
 Add jquery.select2 js file
 
@@ -107,15 +107,59 @@ Add jquery.select2 css file
 {% endblock %}
 ```
 
-### Configuration
-placeholder: Default text to display (Default : Choose an option)
+### Step 5: In your `config.yml`
 
-route: Route select2 have to send datas request (Default: null)
+Setup bundle configuration in your `app/config/config.yml`.
 
-quietMillis: Delay before select2 will send an ajax request (Default: 300 ms)
+```
+jfdl_form:
+    form_types:
+        select2_ajax_entity: true
+```
 
-jsonText: json response should be like this [{'id':1, 'text':MyFirstValue}] but you may want to change de text key with this value (Default: null)
+### Step 6: Create Controller Action
 
-minimumInputLength: Minimum input length before ajax call (Default: 3)
+In order to fetch entities, create a controller action.
+
+```
+/**
+ * Returns a JSON list of entities.
+ * 
+ * @Route("/ajax_autocomplete")
+ * @Method("POST")
+ */
+public function ajaxAutocompleteAction(Request $request)
+{
+    $q = $request->get('q');
+
+    $response = new Response();
+
+    // Fetch your entities with a query of your own
+    $entities = findEntities($q);
+
+    $jsonResults = array();
+
+    foreach($entities as $entity)
+    {
+        $jsonResults[] = array(
+            'id' => $entity->getId(),
+            'text' => $entity->getLabel()
+            );
+    }
+
+    $response->setContent(json_encode($jsonResults));
+
+    $response->headers->set('Content-Type', 'application/json');
+    return $response;
+}
+```
+
+### Configuration Options in your Form Type
+
+- `placeholder`: Default text to display (Default : Choose an option)
+- `route`: Route select2 have to send datas request (Default: null)
+- `quietMillis`: Delay before select2 will send an ajax request (Default: 300 ms)
+- `jsonText`: json response should be like this [{'id':1, 'text':MyFirstValue}] but you may want to change de text key with this value (Default: null)
+- `minimumInputLength`: Minimum input length before ajax call (Default: 3)
 
 That's all... for the moment
