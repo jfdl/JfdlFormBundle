@@ -19,6 +19,10 @@ Installation :
 
 ### Step 1: Download JfdlFormBundle using `composer.json`
 
+If you're using Symfony versions > 2.2.x and < 2.6.x you must use v2.3.x
+
+For Symfony 2.6.x you must use v2.6.x
+
 ``` php
 <?php
 // composer.json
