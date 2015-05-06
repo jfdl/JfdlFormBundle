@@ -12,14 +12,7 @@
                     placeholder: function(element) {
                         return $(element).data('placeholder');
                     },
-                    initSelection : function (element, callback) {
-                        var initialData = $(element).data('initial');
-
-                        if (initialData) {
-                            callback(initialData);
-                        }
-                    },
-
+                    
                     ajax: {
                         dataType: 'json',
                         type: 'post',
