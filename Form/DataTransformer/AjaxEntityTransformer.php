@@ -1,6 +1,6 @@
 <?php
 
-namespace Jfdl\Bundle\FormBundle\Form\DataTransformer;
+namespace Jfdl\FormBundle\Form\DataTransformer;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

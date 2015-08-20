@@ -23,6 +23,19 @@ If you're using Symfony versions > 2.2.x and < 2.6.x you must use v2.3.x
 
 For Symfony 2.6.x you must use v2.6.x
 
+For Symfony 2.7.x you must use v2.7.x
+
+For version > 2.7.x
+
+``` php
+<?php
+// composer.json
+in your require section
+"jfdl/form-bundle": "~2.7"
+
+```
+
+For version < 2.7.x
 ``` php
 <?php
 // composer.json
@@ -62,7 +75,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Jfdl\Bundle\FormBundle\JfdlFormBundle(),
+        new Jfdl\FormBundle\JfdlFormBundle(),
     );
 }
 ```

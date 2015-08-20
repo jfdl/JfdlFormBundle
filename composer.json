@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "symfony/symfony": "~2.1"
+        "symfony/symfony": "~2.7"
     },
     "require-dev": {
         "doctrine/doctrine-bundle": "*",
@@ -18,6 +18,5 @@
     },
     "autoload": {
         "psr-0": { "Jfdl\\Bundle\\FormBundle": "" }
-    },
-    "target-dir": "Jfdl/FormBundle"
+    }
 }

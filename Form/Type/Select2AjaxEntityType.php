@@ -1,5 +1,5 @@
 <?php
-namespace Jfdl\Bundle\FormBundle\Form\Type;
+namespace Jfdl\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 
@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Routing\Router;
-use Jfdl\Bundle\FormBundle\Form\DataTransformer\AjaxEntityTransformer;
+use Jfdl\FormBundle\Form\DataTransformer\AjaxEntityTransformer;
 use Symfony\Component\Translation\TranslatorInterface;
 
 
