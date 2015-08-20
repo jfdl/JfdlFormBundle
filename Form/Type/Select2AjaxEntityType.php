@@ -8,7 +8,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Router;
 use Jfdl\FormBundle\Form\DataTransformer\AjaxEntityTransformer;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -83,7 +83,7 @@ class Select2AjaxEntityType extends AbstractType
         $view->vars['minimumInputLength'] = $form->getConfig()->getAttribute('minimumInputLength');
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired(array('class'));
         $resolver->setDefaults(array(
