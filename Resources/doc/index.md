@@ -19,13 +19,29 @@ Installation :
 
 ### Step 1: Download JfdlFormBundle using `composer.json`
 
-If you're using Symfony versions > 2.2.x and < 2.6.x you must use v2.3.x
+#### If you're using Symfony versions > 2.2.x and < 2.6.x you must use v2.3.x ####
 
-For Symfony 2.6.x you must use v2.6.x
 
-For Symfony 2.7.x you must use v2.7.x
+``` php
+<?php
+// composer.json
+in your require section
+"jfdl/form-bundle": "~2.3"
+```
 
-For version > 2.7.x
+#### For Symfony 2.6.x you must use v2.6.x ####
+
+
+``` php
+<?php
+// composer.json
+in your require section
+"jfdl/form-bundle": "~2.6"
+```
+
+#### For version >= 2.7.x ####
+
+**Starting from version 2.7 you will need Select2 4.***
 
 ``` php
 <?php
@@ -35,33 +51,6 @@ in your require section
 
 ```
 
-For version < 2.7.x
-``` php
-<?php
-// composer.json
-in your require section
-"jfdl/form-bundle": "2.3.2"
-
-in your repositories section
-"repositories": {
-    "jfdl/form-bundle": {
-        "type": "package",
-        "package": {
-            "version": "v2.3.2",
-            "name": "jfdl/form-bundle",
-            "source": {
-               "url": "https://github.com/jfdl/JfdlFormBundle.git",
-               "type": "git",
-               "reference": "v2.3.2"
-            },
-            "autoload": {
-                "psr-0": { "Jfdl\\Bundle\\FormBundle": "" }
-            },
-            "target-dir": "Jfdl/Bundle/FormBundle"
-        }
-    }
-},
-```
 
 ### Step 2: Enable the Bundle
 
@@ -139,6 +128,9 @@ jfdl_form:
 In order to fetch entities, create a controller action.
 
 ```
+
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 /**
  * Returns a JSON list of entities.
  * 
@@ -161,10 +153,10 @@ public function ajaxAutocompleteAction(Request $request)
         $jsonResults[] = array(
             'id' => $entity->getId(),
             'text' => $entity->getLabel()
-            );
+        );
     }
 
-    $response->setContent(json_encode($jsonResults));
+    return new JsonResponse($jsonResults);
 
     $response->headers->set('Content-Type', 'application/json');
     return $response;
@@ -175,7 +167,7 @@ public function ajaxAutocompleteAction(Request $request)
 
 - `placeholder`: Default text to display (Default : Choose an option)
 - `route`: Route select2 have to send datas request (Default: null)
-- `quietMillis`: Delay before select2 will send an ajax request (Default: 300 ms)
+- `delay`: Delay before select2 will send an ajax request (Default: 300 ms)
 - `jsonText`: json response should be like this [{'id':1, 'text':MyFirstValue}] but you may want to change de text key with this value (Default: null)
 - `minimumInputLength`: Minimum input length before ajax call (Default: 3)
 

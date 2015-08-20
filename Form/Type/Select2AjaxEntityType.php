@@ -45,7 +45,7 @@ class Select2AjaxEntityType extends AbstractType
 
         $builder->setAttribute('multiple', $options['multiple']);
         $builder->setAttribute('route', $options['route']);
-        $builder->setAttribute('quietMillis', $options['quietMillis']);
+        $builder->setAttribute('delay', $options['delay']);
         $builder->setAttribute('jsonText', $options['jsonText']);
         $builder->setAttribute('minimumInputLength', $options['minimumInputLength']);
         $builder->addViewTransformer($transformer);
@@ -78,7 +78,7 @@ class Select2AjaxEntityType extends AbstractType
         }
 
         $view->vars['multiple'] = $form->getConfig()->getAttribute('multiple');
-        $view->vars['quietMillis'] = $form->getConfig()->getAttribute('quietMillis');
+        $view->vars['delay'] = $form->getConfig()->getAttribute('delay');
         $view->vars['jsonText'] = $form->getConfig()->getAttribute('jsonText');
         $view->vars['minimumInputLength'] = $form->getConfig()->getAttribute('minimumInputLength');
     }
@@ -92,7 +92,7 @@ class Select2AjaxEntityType extends AbstractType
                 'repo_method'   => null,
                 'property'      => null,
                 'multiple'      => false,
-                'quietMillis' => '300',
+                'delay' => '300',
                 'jsonText' => null,
                 'minimumInputLength' => 3
             ));
@@ -105,7 +105,7 @@ class Select2AjaxEntityType extends AbstractType
 
     public function getParent()
     {
-        return 'text';
+        return 'choice';
     }
 
     public function getName()
