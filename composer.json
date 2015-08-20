@@ -17,6 +17,6 @@
         "doctrine/orm": "*"
     },
     "autoload": {
-        "psr-0": { "Jfdl\\Bundle\\FormBundle": "" }
+        "psr-0": { "Jfdl\\FormBundle": "" }
     }
 }
