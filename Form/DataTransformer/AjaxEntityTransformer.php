@@ -3,7 +3,7 @@
 namespace Jfdl\FormBundle\Form\DataTransformer;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\DataTransformerInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -18,9 +18,9 @@ class AjaxEntityTransformer implements DataTransformerInterface
     protected $multiple;
     protected $property;
 
-    public function __construct(ManagerRegistry $registry, $class, $multiple, $property)
+    public function __construct(EntityManager $entityManager, $class, $multiple, $property)
     {
-        $this->repo = $registry->getManager()->getRepository($class);
+        $this->repo = $entityManager->getRepository($class);
         $this->multiple = $multiple;
         $this->property = $property;
     }
