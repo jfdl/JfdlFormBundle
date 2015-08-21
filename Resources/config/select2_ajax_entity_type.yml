@@ -4,6 +4,6 @@ parameters:
 services:
     jfdl_form.select2_ajax_entity_type:
         class: %jfdl_form.select2_ajax_entity_type.class%
-        arguments: [@doctrine, @router, @translator]
+        arguments: ["@doctrine.orm.entity_manager", "@router", "@translator"]
         tags:
             - { name: form.type, alias: jfdl_select2_ajax_entity}

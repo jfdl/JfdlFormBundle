@@ -4,7 +4,7 @@ namespace Jfdl\FormBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 
 use Symfony\Component\Form\FormBuilderInterface;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -21,13 +21,13 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class Select2AjaxEntityType extends AbstractType
 {
-    protected $registry;
+    protected $entityManager;
     protected $router;
     protected $translator;
 
-    public function __construct(ManagerRegistry $registry, Router $router, TranslatorInterface $translator)
+    public function __construct(EntityManager $entityManager, Router $router, TranslatorInterface $translator)
     {
-        $this->registry = $registry;
+        $this->entityManager = $entityManager;
         $this->router = $router;
         $this->translator = $translator;
 
@@ -36,7 +36,7 @@ class Select2AjaxEntityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $transformer = new AjaxEntityTransformer(
-            $this->registry,
+            $this->entityManager,
             $options['class'],
             $options['multiple'],
             $options['property']
@@ -48,7 +48,7 @@ class Select2AjaxEntityType extends AbstractType
         $builder->setAttribute('delay', $options['delay']);
         $builder->setAttribute('jsonText', $options['jsonText']);
         $builder->setAttribute('minimumInputLength', $options['minimumInputLength']);
-        $builder->addViewTransformer($transformer);
+//        $builder->addViewTransformer($transformer);
     }
 
 
@@ -105,7 +105,7 @@ class Select2AjaxEntityType extends AbstractType
 
     public function getParent()
     {
-        return 'choice';
+        return 'entity';
     }
 
     public function getName()
