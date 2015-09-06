@@ -3,8 +3,9 @@ namespace Jfdl\FormBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 
+use Symfony\Component\Form\ChoiceList\View\ChoiceView;
 use Symfony\Component\Form\FormBuilderInterface;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -21,13 +22,13 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class Select2AjaxEntityType extends AbstractType
 {
-    protected $entityManager;
+    protected $registry;
     protected $router;
     protected $translator;
 
-    public function __construct(EntityManager $entityManager, Router $router, TranslatorInterface $translator)
+    public function __construct(ManagerRegistry $registry, Router $router, TranslatorInterface $translator)
     {
-        $this->entityManager = $entityManager;
+        $this->registry = $registry;
         $this->router = $router;
         $this->translator = $translator;
 
@@ -36,40 +37,35 @@ class Select2AjaxEntityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $transformer = new AjaxEntityTransformer(
-            $this->entityManager,
+            $this->registry,
             $options['class'],
             $options['multiple'],
             $options['property']
         );
-        $this->options = $options;
-
+        $builder->setAttribute('placeholder', $options['placeholder']);
         $builder->setAttribute('multiple', $options['multiple']);
         $builder->setAttribute('route', $options['route']);
-        $builder->setAttribute('delay', $options['delay']);
+        $builder->setAttribute('quietMillis', $options['quietMillis']);
         $builder->setAttribute('jsonText', $options['jsonText']);
         $builder->setAttribute('minimumInputLength', $options['minimumInputLength']);
-//        $builder->addViewTransformer($transformer);
+        $builder->setAttribute('attr', $options['attr']);
+        $builder->addViewTransformer($transformer);
+
     }
 
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $value = $view->vars['value'];
+        // Construct ChoiceView
+        $choices = array();
+        foreach($view->vars['value'] as $k => $v) {
+            $choices[] = new ChoiceView($k, $k, $v, array('selected' => 'selected'));
+        }
+
         $multiple = $options['multiple'];
 
-        if ($value) {
-            if ($multiple) {
-                // build id string
-                $ids = array();
-                foreach ($value as $entity) {
-                    $ids[] = $entity['id'];
-                }
-                $view->vars['value'] = implode(',', $ids);
-            } else {
-                $view->vars['value'] = $value['id'];
-            }
-
-            $view->vars['attr']['data-initial'] = json_encode($value);
+        if (true == $multiple) {
+            $view->vars['full_name'] .= '[]';
         }
 
         $view->vars['attr']['data-placeholder'] = $this->translator->trans($options['placeholder']);
@@ -77,8 +73,13 @@ class Select2AjaxEntityType extends AbstractType
             $view->vars['route'] = $this->router->generate($form->getConfig()->getAttribute('route'));
         }
 
+        $view->vars['expanded'] = false;
+        $view->vars['preferred_choices'] = false;
+        $view->vars['choice_translation_domain'] = false;
+        $view->vars['choices'] = $choices;
+        $view->vars['placeholder'] = $form->getConfig()->getAttribute('placeholder');
         $view->vars['multiple'] = $form->getConfig()->getAttribute('multiple');
-        $view->vars['delay'] = $form->getConfig()->getAttribute('delay');
+        $view->vars['quietMillis'] = $form->getConfig()->getAttribute('quietMillis');
         $view->vars['jsonText'] = $form->getConfig()->getAttribute('jsonText');
         $view->vars['minimumInputLength'] = $form->getConfig()->getAttribute('minimumInputLength');
     }
@@ -86,13 +87,14 @@ class Select2AjaxEntityType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired(array('class'));
+        $resolver->setRequired(array('route'));
         $resolver->setDefaults(array(
                 'placeholder'   => 'Choose an option',
-                'route'           => null,
+                'choices' => array(),
                 'repo_method'   => null,
                 'property'      => null,
                 'multiple'      => false,
-                'delay' => '300',
+                'quietMillis' => '300',
                 'jsonText' => null,
                 'minimumInputLength' => 3
             ));
@@ -105,7 +107,7 @@ class Select2AjaxEntityType extends AbstractType
 
     public function getParent()
     {
-        return 'entity';
+        return 'text';
     }
 
     public function getName()

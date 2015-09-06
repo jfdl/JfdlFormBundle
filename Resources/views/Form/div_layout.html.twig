@@ -1,4 +1,7 @@
+
 {% block jfdl_select2_ajax_entity_widget %}
+    {% spaceless %}
+
     {{ block('choice_widget') }}
 
     <script type="text/javascript">
@@ -11,15 +14,14 @@
                     placeholder: function(element) {
                         return $(element).data('placeholder');
                     },
-
                     ajax: {
                         dataType: 'json',
                         type: 'post',
                         url: "{{ form.vars.route}}",
-                        delay: {{ form.vars.delay }},
+                        delay: {{ form.vars.quietMillis }},
                         data: function (params) {
                             return {
-                                q: params.term,
+                                q: params.term
                             }
                         },
                         processResults: function (data) {
@@ -33,12 +35,14 @@
                                 return { results: data };
                             {% endif %}
                         }
+
                     }
 
                 };
                 $("#{{ form.vars.id }}").select2(options);
         })
     </script>
+    {% endspaceless %}
 {% endblock %}
 
 
