@@ -1,6 +1,6 @@
 <?php
 
-namespace Jfdl\Bundle\FormBundle\DependencyInjection;
+namespace Jfdl\FormBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;

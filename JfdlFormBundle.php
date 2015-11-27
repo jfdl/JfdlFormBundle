@@ -1,11 +1,11 @@
 <?php
 
-namespace Jfdl\Bundle\FormBundle;
+namespace Jfdl\FormBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-use Jfdl\Bundle\FormBundle\DependencyInjection\Compiler\FormPass;
+use Jfdl\FormBundle\DependencyInjection\Compiler\FormPass;
 
 class JfdlFormBundle extends Bundle
 {
