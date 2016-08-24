@@ -1,6 +1,8 @@
 
 {% block jfdl_select2_ajax_entity_widget %}
-    {{ block('form_widget') }}
+    {% spaceless %}
+
+    {{ block('choice_widget') }}
 
     <script type="text/javascript">
         $(function(){
@@ -12,41 +14,35 @@
                     placeholder: function(element) {
                         return $(element).data('placeholder');
                     },
-                    initSelection : function (element, callback) {
-                        var initialData = $(element).data('initial');
-
-                        if (initialData) {
-                            callback(initialData);
-                        }
-                    },
-
                     ajax: {
                         dataType: 'json',
                         type: 'post',
                         url: "{{ form.vars.route}}",
-                        quietMillis: {{ form.vars.quietMillis }},
-                        data: function (term) {
+                        delay: {{ form.vars.quietMillis }},
+                        data: function (params) {
                             return {
-                                q: term,
+                                q: params.term
                             }
                         },
-                        results: function (data) {
+                        processResults: function (data) {
                             {% if form.vars.jsonText is not null %}
                                 var datas = [];
                                 $.each(data, function(key, val) {
                                     datas.push({'id':val.id,'text':val.{{ form.vars.jsonText}}});
                                 });
-                                return { results: datas }
+                                return { results: datas };
                             {% else %}
-                                return { results: data }
+                                return { results: data };
                             {% endif %}
                         }
+
                     }
 
-                }
+                };
                 $("#{{ form.vars.id }}").select2(options);
         })
     </script>
+    {% endspaceless %}
 {% endblock %}
 
 

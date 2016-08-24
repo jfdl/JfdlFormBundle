@@ -3,7 +3,7 @@
 namespace Jfdl\FormBundle\Form\DataTransformer;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Form\DataTransformerInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -27,42 +27,35 @@ class AjaxEntityTransformer implements DataTransformerInterface
 
     public function transform($value)
     {
-        if (is_array($value) || $value instanceof Collection) {
-            $ret = array();
-
-            foreach ($value as $entity) {
-                $ret[] = array(
-                    'id' => $entity->getId(),
-                    'text' => $this->getText($entity)
-                );
+        $out = array();
+        if (($value instanceof PersistentCollection) || ($value instanceof ArrayCollection)) {
+            foreach($value as $entity) {
+                $out[$entity->getId()] = $this->getText($entity);
             }
-
-            return $ret;
+        } elseif (is_object($value)) {
+            $out[$value->getId()] = $this->getText($value);
+        } else {
+            return array();
         }
 
-        if (is_object($value)) {
-            return array(
-                'id' => $value->getId(),
-                'text' => $this->getText($value)
-            );
-        }
 
-        return null;
+        return $out;
+
     }
 
     public function reverseTransform($value)
     {
+
         if (!$value) {
             return $this->multiple ? array() : null;
         }
 
         if ($this->multiple) {
-            $ids = explode(',', $value);
-            $ids = array_unique($ids);
+
 
             $qb = $this->repo->createQueryBuilder('entity');
             $qb->where('entity.id IN (:ids)')
-                ->setParameter('ids', $ids)
+                ->setParameter('ids', $value)
             ;
 
             return new ArrayCollection($qb->getQuery()->execute());
@@ -91,4 +84,4 @@ class AjaxEntityTransformer implements DataTransformerInterface
 
         return $accessor->getValue($object, $this->property);
     }
-}
+};
