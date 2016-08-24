@@ -30,6 +30,12 @@ You must use
 - Jfdl\FormBundle v2.7.x 
 - Select2 >= 4.x
 
+### Symfony 3.x 
+You must use 
+
+- Jfdl\FormBundle v3.x 
+- Select2 >= 4.x
+
 ## Installation
 
 ### Step 1: Download JfdlFormBundle using `composer.json`
