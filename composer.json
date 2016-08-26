@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "symfony/symfony": "~2.7"
+        "symfony/symfony": "~3"
     },
     "require-dev": {
         "doctrine/doctrine-bundle": "*",
